@@ -1,12 +1,16 @@
 package com.zufar.bookshelf.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Books")
 public class Book {
@@ -34,13 +38,13 @@ public class Book {
     private List<Author> authors;
 
     @Column
-    private LocalDate publication_date;
+    private LocalDate publicationDate;
 
     @OneToOne
     @JoinColumn(name = "country_id")
     private Country country;
 
     @Column
-    private int page_count;
+    private int pageCount;
 
 }

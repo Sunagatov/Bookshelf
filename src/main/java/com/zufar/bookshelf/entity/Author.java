@@ -1,12 +1,16 @@
 package com.zufar.bookshelf.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Authors")
 public class Author {
@@ -19,17 +23,17 @@ public class Author {
     private String imageLink;
 
     @Column(nullable = false, length = 50)
-    private String full_name;
+    private String fullName;
 
     @Column(length = 50)
-    private String nick_name;
+    private String nickName;
 
 
     @Column(nullable = false)
     private LocalDate birthday;
 
     @Column
-    private LocalDate deathday;
+    private LocalDate deathDay;
 
     @OneToOne
     @JoinColumn(name = "country_id")
