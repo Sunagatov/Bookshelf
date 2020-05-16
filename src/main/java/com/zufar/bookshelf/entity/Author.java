@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -45,4 +46,22 @@ public class Author {
             inverseJoinColumns = {@JoinColumn(name = "book_id")}
     )
     private List<Book> books;
+
+    @Override
+    public String toString() {
+        List<String> bookTitles = new ArrayList<>();
+        if (this.books != null) {
+            books.forEach(author -> bookTitles.add(author.getTitle()));
+        }
+        return "Author{" +
+                "id=" + id +
+                ", imageLink='" + imageLink + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", birthday=" + birthday +
+                ", deathDay=" + deathDay +
+                ", country=" + country +
+                ", books=" + bookTitles +
+                '}';
+    }
 }

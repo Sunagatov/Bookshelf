@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -47,4 +48,23 @@ public class Book {
     @Column
     private int pageCount;
 
+    @Override
+    public String toString() {
+       List<String> authorNames = new ArrayList<>();
+       if (this.authors != null) {
+           authors.forEach(author -> authorNames.add(author.getFullName()));
+       }
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", imageLink='" + imageLink + '\'' +
+                ", epubLink='" + epubLink + '\'' +
+                ", fb2Link='" + fb2Link + '\'' +
+                ", pdfLink='" + pdfLink + '\'' +
+                ", authors=" + authorNames +
+                ", publicationDate=" + publicationDate +
+                ", country=" + country +
+                ", pageCount=" + pageCount +
+                '}';
+    }
 }
