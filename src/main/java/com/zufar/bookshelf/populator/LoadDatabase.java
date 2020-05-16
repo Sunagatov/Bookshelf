@@ -53,7 +53,7 @@ class LoadDatabase {
             coelho.setCountryId(russian_federation.getId());
 
             AuthorDTO bradbury = new AuthorDTO();
-            bradbury.setImageLink("https://unotices.com/writers_all/bredberi_rei_dyglas/bredberi_rei_dyglas-2.jpg");
+            bradbury.setImageLink("https://cdn.fishki.net/upload/post/2019/06/07/3000736/84232741-custom-3e54d21f7e32261f9866964be484ce23dee6d17f-s800.jpg");
             bradbury.setFullName("Ray");
             bradbury.setNickName("Ray Bradbury");
             bradbury.setBirthday(new DateDTO(1920, 8, 22));

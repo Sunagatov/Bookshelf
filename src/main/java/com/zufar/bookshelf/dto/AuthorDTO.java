@@ -34,4 +34,12 @@ public class AuthorDTO {
         Integer deathYear = Integer.valueOf(Integer.toString(deathday.getYear()).replace(",", ""));
         this.deathDay = new DateDTO(deathYear, deathday.getMonthValue(), deathday.getDayOfMonth());
     }
+
+    public AuthorDTO(String full_name, String nick_name, DateDTO birth, DateDTO death, Long country, List<Long> booksIds) {
+        this.fullName = full_name;
+        this.nickName = nick_name;
+        this.deathDay = death;
+        this.countryId = country;
+        this.booksIds = booksIds;
+    }
 }

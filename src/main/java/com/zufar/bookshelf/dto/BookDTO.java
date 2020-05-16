@@ -21,4 +21,12 @@ public class BookDTO {
     private String pdfLink;
     private Long countryId;
     private int pageCount;
+
+    public BookDTO(String title, List<Long> authorIds, DateDTO publicationDate, Long country, int page_count) {
+        this.title = title;
+        this.authors = authorIds;
+        this.publicationDate = publicationDate;
+        this.countryId = country;
+        this.pageCount = page_count;
+    }
 }
