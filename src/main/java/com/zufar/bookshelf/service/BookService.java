@@ -1,13 +1,11 @@
 package com.zufar.bookshelf.service;
 
-import com.zufar.bookshelf.dto.BookDTO;
-import com.zufar.bookshelf.dto.DateDTO;
 import com.zufar.bookshelf.entity.Author;
 import com.zufar.bookshelf.entity.Book;
-import com.zufar.bookshelf.entity.Country;
 import com.zufar.bookshelf.repository.AuthorRepository;
 import com.zufar.bookshelf.repository.BookRepository;
 import com.zufar.bookshelf.repository.CountryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
+@Slf4j
 @Service
 @Transactional
 public class BookService {
@@ -35,43 +34,6 @@ public class BookService {
         this.countryRepository = countryRepository;
     }
 
-    public void save(BookDTO bookDTO) {
-        DateDTO publication_dateDTO = bookDTO.getPublicationDate();
-        LocalDate publication_date = LocalDate.of(publication_dateDTO.getYear(), publication_dateDTO.getMonth(),
-                publication_dateDTO.getDay());
-        Long countryId = bookDTO.getCountryId();
-        Country country = countryRepository.getOne(countryId);
-        List<Author> authors = authorRepository.findAllById(bookDTO.getAuthors());
-        Book book = new Book();
-        book.setTitle(bookDTO.getTitle());
-        book.setPublicationDate(publication_date);
-        book.setFb2Link(bookDTO.getFb2Link());
-        book.setImageLink(bookDTO.getImageLink());
-        book.setEpubLink(bookDTO.getEpubLink());
-        book.setPageCount(bookDTO.getPageCount());
-        book.setPdfLink(bookDTO.getPdfLink());
-        book.setCountry(country);
-        book.setAuthors(authors);
-        bookRepository.save(book);
-        for (Author author : authors) {
-            author.getBooks().add(book);
-            authorRepository.save(author);
-        }
-
-    }
-
-    public void delete(Book book) {
-        for (Author author : book.getAuthors()) {
-            author.getBooks().remove(book);
-            authorRepository.save(author);
-        }
-        bookRepository.delete(book);
-    }
-
-    public void update(Book book) {
-        bookRepository.save(book);
-    }
-
     public Book get(Long id) {
         return bookRepository.getOne(id);
     }
@@ -82,5 +44,65 @@ public class BookService {
 
     public List<Book> getAll(List<Long> bookIds) {
         return bookRepository.findAllById(bookIds);
+    }
+
+    public void save(String title,
+                     List<Long> authorIds,
+                     int publicationYear, int publicationMonth, int publicationDay,
+                     Long countryId,
+                     int page_count,
+                     String image_link,
+                     String fb2Link, String epubLink, String pdf_link) {
+        Book book = new Book();
+        book.setTitle(title);
+        book.setPublicationDate(LocalDate.of(publicationYear, publicationMonth, publicationDay));
+        book.setFb2Link(fb2Link);
+        book.setImageLink(image_link);
+        book.setEpubLink(epubLink);
+        book.setPageCount(page_count);
+        book.setPdfLink(pdf_link);
+        book.setCountry(countryRepository.getOne(countryId));
+        List<Author> authors = authorRepository.findAllById(authorIds);
+        book.setAuthors(authors);
+        bookRepository.save(book);
+        for (Author author : authors) {
+            author.getBooks().add(book);
+            authorRepository.save(author);
+        }
+        log.info("Saving {} was successful", book);
+    }
+
+    public void update(Long id, String title, List<Long> authorIds, int publicationYear, int publicationMonth, int publicationDay, Long countryId, int page_count, String image_link, String fb2Link, String epubLink, String pdf_link) {
+        Book book = bookRepository.getOne(id);
+        book.setTitle(title);
+        book.setPublicationDate(LocalDate.of(publicationYear, publicationMonth, publicationDay));
+        book.setFb2Link(fb2Link);
+        book.setImageLink(image_link);
+        book.setEpubLink(epubLink);
+        book.setPageCount(page_count);
+        book.setPdfLink(pdf_link);
+        book.setCountry(countryRepository.getOne(countryId));
+        List<Author> authors = authorRepository.findAllById(authorIds);
+        book.setAuthors(authors);
+        bookRepository.save(book);
+        for (Author author : authors) {
+            author.getBooks().add(book);
+            authorRepository.save(author);
+        }
+        log.info("Updating {} was successful", book);
+    }
+
+    public void delete(Book book) {
+        for (Author author : book.getAuthors()) {
+            author.getBooks().remove(book);
+            authorRepository.save(author);
+        }
+        bookRepository.delete(book);
+        log.info("Deleting {} was successful", book);
+    }
+
+    public void delete(Long id) {
+        Book book = this.bookRepository.getOne(id);
+        this.delete(book);
     }
 }
