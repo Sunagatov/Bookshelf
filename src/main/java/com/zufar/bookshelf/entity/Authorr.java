@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,27 +18,34 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "Authors")
-public class Author {
+public class Authorr {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String imageLink;
 
+    @Size(min=2, max=50)
     @Column(nullable = false, length = 50)
     private String fullName;
 
+    @Size(min=2, max=50)
     @Column(length = 50)
     private String nickName;
 
-    @Column(nullable = false) @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false)
     private LocalDate birthday;
 
-    @Column @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column
     private LocalDate deathDay;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "country_id")
     private Country country;
@@ -47,7 +57,7 @@ public class Author {
     )
     private List<Book> books;
 
-    public void update(Author author) {
+    public void update(Authorr author) {
         this.id = author.getId();
         this.imageLink = author.getImageLink();
         this.fullName = author.getFullName();
@@ -75,6 +85,4 @@ public class Author {
                 ", books=" + bookTitles +
                 '}';
     }
-
-
 }

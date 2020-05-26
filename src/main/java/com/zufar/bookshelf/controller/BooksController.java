@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class BooksController {
 
@@ -58,14 +60,16 @@ public class BooksController {
     }
 
     @PostMapping("/books")
-    public String add(Book book, ModelMap modelMap) throws Exception {
+    public String add(@Valid Book book, ModelMap modelMap) throws Exception {
         bookService.save(book);
         modelMap.addAttribute("books", bookService.getAll());
         return "lists/bookListView";
     }
 
     @PostMapping("/books/{id}")
-    public String update(@PathVariable(value = "id") long id, Book book, ModelMap modelMap) throws Exception {
+    public String update(@PathVariable(value = "id") long id,
+                         @Valid Book book,
+                         ModelMap modelMap) throws Exception {
         book.setId(id);
         bookService.update(book);
         modelMap.addAttribute("books", bookService.getAll());

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class UserController {
 
@@ -28,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(User user) {
+    public String addUser(@Valid User user) {
         this.userService.save(user);
         return "home";
     }

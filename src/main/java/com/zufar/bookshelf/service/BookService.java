@@ -1,6 +1,6 @@
 package com.zufar.bookshelf.service;
 
-import com.zufar.bookshelf.entity.Author;
+import com.zufar.bookshelf.entity.Authorr;
 import com.zufar.bookshelf.entity.Book;
 import com.zufar.bookshelf.repository.AuthorRepository;
 import com.zufar.bookshelf.repository.BookRepository;
@@ -56,10 +56,10 @@ public class BookService {
         book.setPageCount(page_count);
         book.setPdfLink(pdf_link);
         book.setCountry(countryRepository.getOne(countryId));
-        List<Author> authors = authorRepository.findAllById(authorIds);
+        List<Authorr> authors = authorRepository.findAllById(authorIds);
         book.setAuthors(authors);
         bookRepository.save(book);
-        for (Author author : authors) {
+        for (Authorr author : authors) {
             author.getBooks().add(book);
             authorRepository.save(author);
         }

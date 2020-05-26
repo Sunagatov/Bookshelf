@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,12 @@ public class Book {
     @GeneratedValue
     private Long id;
 
+    @NotNull
+    @Size(min=2, max=40)
     @Column(nullable = false)
     private String title;
 
+    @NotNull
     @Column
     private String imageLink;
 
@@ -37,16 +42,19 @@ public class Book {
     private String pdfLink;
 
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
-    private List<Author> authors;
+    private List<Authorr> authors;
 
+    @NotNull
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate publicationDate;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @NotNull
     @Column
     private int pageCount;
 

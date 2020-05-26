@@ -40,28 +40,28 @@ class LoadDatabase {
             countryService.save(russian_federation);
             countryService.save(new Country("British India"));
             countryService.save(new Country("USA"));
-            Author orwel = authorService.save(
+            Authorr orwel = authorService.save(
                     null,
                     "Eric Blair Arthur", "George Orwell",
                     1903, 6, 25, 1950, 1, 21,
                     russian_federation.getId(),
                     null,
                     "https://mtdata.ru/u19/photoA884/20446828934-0/original.jpg");
-            Author bradbury = authorService.save(
+            Authorr bradbury = authorService.save(
                     null,
                     "Ray Bradbury", "Ray",
                     1903, 6, 25, 1950, 1, 21,
                     russian_federation.getId(),
                     null,
                     "https://cdn.fishki.net/upload/post/2019/06/07/3000736/84232741-custom-3e54d21f7e32261f9866964be484ce23dee6d17f-s800.jpg");
-            Author coelho = authorService.save(
+            Authorr coelho = authorService.save(
                     null,
                     "Coelho", "Coelho",
                     1903, 6, 25, 1950, 1, 21,
                     russian_federation.getId(),
                     null,
                     "https://24smi.org/public/media/resize/800x-/celebrity/2017/08/11/WfzUTQ8NvHbj_aizek-azimov.jpg");
-            Author asimov = authorService.save(
+            Authorr asimov = authorService.save(
                     null,
                     "Isaac Asimov", "Isaac",
                     1903, 6, 25, 1950, 1, 21,

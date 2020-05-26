@@ -40,46 +40,15 @@
 </div>
 
 <div class="main">
-    <form th:object="${author}" action="#" th:action="@{/authors}" method="post">
+    <form id="author" th:object="${author}" action="#" th:action="@{/authors}" method="post">
         <div class="registration">
 
             <h2>Add new author</h2>
             <hr id="line">
 
-            <label for="imageLink">Image link:</label>
-            <input type="text" id="imageLink" name="imageLink" placeholder="Your image link..">
-
             <label for="fullName">Name:</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Your full name..">
-
-            <label for="nickname">Nickname:</label>
-            <input type="text" id="nickname" name="nickname" placeholder="Your nickname..">
-
-            <label for="country">Country:</label>
-            <select id="country" th:field="*{country}" name="country">
-                <option value="">Nothing selected</option>
-                <option th:each="country : ${countries}" th:value="${{country.id}}" th:text="${country.name}">
-                    Country
-                </option>
-            </select>
-
-            <label for="books">Books:</label>
-            <select id="books" th:field="*{books}" multiple="multiple">
-                <option value="">Nothing selected</option>
-                <option th:each="book : ${books}" th:value="${{book}}" th:text="${book.title}">Books</option>
-            </select>
-
-            <label for="birthday">Birthday:</label>
-            <div class="publicationDate">
-                <input type="date" id="birthday" name="birthday" value="" th:field="*{birthday}">
-            </div>
-
-            <label for="deathDay">Death day:</label>
-            <div class="publicationDate">
-                <div class="publicationDate">
-                    <input type="date" id="deathDay" name="deathDay" value="" th:field="*{deathDay}">
-                </div>
-            </div>
+            <input th:field="*{fullName}" type="text" id="fullName" name="fullName" placeholder="Your full name..">
+            <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">fullName Error</div>
 
             <div class="SubmitButton">
                 <input type="submit" value="Add">

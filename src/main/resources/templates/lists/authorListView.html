@@ -43,7 +43,7 @@
 <div class="main">
 
     <div class="addNewItem" sec:authorize="hasRole('ROLE_ADMIN')">
-        <form action="#" th:action="@{/addAuthorView}" method="get">
+        <form action="#" th:action="@{/addAuthorForm}" method="get">
             <input type="submit" value="Add new author">
         </form>
     </div>

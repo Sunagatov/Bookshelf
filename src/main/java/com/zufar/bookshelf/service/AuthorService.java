@@ -1,6 +1,6 @@
 package com.zufar.bookshelf.service;
 
-import com.zufar.bookshelf.entity.Author;
+import com.zufar.bookshelf.entity.Authorr;
 import com.zufar.bookshelf.entity.Book;
 import com.zufar.bookshelf.entity.Country;
 import com.zufar.bookshelf.repository.AuthorRepository;
@@ -32,9 +32,9 @@ public class AuthorService {
         this.bookRepository = bookRepository;
     }
 
-    public Author save(Long id, String fullName, String nickName, int birthYear, int birthMonth, int birthDay,
-                       int deathYear, int deathMonth, int deathDay, Long countryId, List<Long> booksIds, String imageLink) {
-        Author author = new Author();
+    public Authorr save(Long id, String fullName, String nickName, int birthYear, int birthMonth, int birthDay,
+                        int deathYear, int deathMonth, int deathDay, Long countryId, List<Long> booksIds, String imageLink) {
+        Authorr author = new Authorr();
         if (id != null) {
             author = authorRepository.getOne(id);
         }
@@ -56,35 +56,35 @@ public class AuthorService {
         }
         author.setCountry(country);
 
-        Author savedAuthor = authorRepository.save(author);
+        Authorr savedAuthor = authorRepository.save(author);
 
         log.info("Updating {} was successful", savedAuthor);
         return savedAuthor;
     }
 
-    public Author get(Long id) {
+    public Authorr get(Long id) {
         return authorRepository.getOne(id);
     }
 
-    public List<Author> getAll() {
+    public List<Authorr> getAll() {
         return authorRepository.findAll();
     }
 
-    public Author save(Author author) {
-        Author savedAuthor = this.authorRepository.save(author);
+    public Authorr save(Authorr author) {
+        Authorr savedAuthor = this.authorRepository.save(author);
         log.info("Saving {} was successful", savedAuthor);
         return savedAuthor;
     }
 
-    public Author update(Author author) throws Exception {
-        Author oldAuthor = this.get(author.getId());
+    public Authorr update(Authorr author) throws Exception {
+        Authorr oldAuthor = this.get(author.getId());
         if (oldAuthor == null) throw new Exception();
         oldAuthor.update(author);
         log.info("Updating {} was successful", oldAuthor);
         return oldAuthor;
     }
 
-    public void delete(Author author) {
+    public void delete(Authorr author) {
         this.deleteAuthorInAllBooks(author);
         authorRepository.delete(author);
         log.info("Deleting {} was successful", author);
@@ -95,11 +95,11 @@ public class AuthorService {
         this.delete(this.get(id));
     }
 
-    public void deleteAuthorInAllBooks(Author author) {
+    public void deleteAuthorInAllBooks(Authorr author) {
         author.getBooks()
                 .stream()
                 .peek(book -> {
-                    List<Author> lastAuthors = book
+                    List<Authorr> lastAuthors = book
                             .getAuthors()
                             .stream()
                             .filter(current ->
